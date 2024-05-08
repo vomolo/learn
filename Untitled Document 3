@@ -1,0 +1,16 @@
+func Hex(line string) string {
+	hex := regexp.MustCompile(`(?i)(\b\w+\b)\s?\(hex\)`)
+	matchHex := hex.FindStringSubmatch(line)
+	hexNumber := "0"
+	if len(matchHex) > 1 {
+		hexNumber = matchHex[1]
+	}
+
+	decimalHex, err := strconv.ParseInt(hexNumber, 16, 64)
+	if err != nil {
+		return line
+	}
+
+	replacedLine := hex.ReplaceAllString(line, fmt.Sprintf("%d", decimalHex))
+
+	return replacedLine

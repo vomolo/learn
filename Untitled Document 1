@@ -1,0 +1,123 @@
+func LowInt(str string) string {
+	slice := strings.Fields(str)
+	for i := 0; i < len(slice); i++ {
+		if strings.Contains(slice[i], "(low") {
+			if strings.Contains(slice[i], "(low,") {
+				num, _ := strconv.Atoi(slice[i+1][:len(slice[i+1])-1])
+				for k := i - num; k < i; k++ {
+					slice[k] = strings.ToLower(slice[k])
+				}
+				slice = append(slice[:i], slice[i+2:]...)
+				str = strings.Join(slice, " ")
+			} else {
+				slice[i-1] = strings.ToLower(slice[i-1])
+				slice = append(slice[:i], slice[i+1:]...)
+				str = strings.Join(slice, " ")
+			}
+		}
+	}
+	return str
+}
+
+func Hex(line string) string {
+	hex := regexp.MustCompile(`(?i)(\b\w+\b)\s?\(hex\)`)
+	matchHex := hex.FindStringSubmatch(line)
+	hexNumber := "0"
+	if len(matchHex) > 1 {
+		hexNumber = matchHex[1]
+	}
+
+	decimalHex, err := strconv.ParseInt(hexNumber, 16, 64)
+	if err != nil {
+		return line
+	}
+
+	replacedLine := hex.ReplaceAllString(line, fmt.Sprintf("%d", decimalHex))
+	replacedLine = strings.Join(strings.Fields(replacedLine), " ")
+
+	return replacedLine
+}
+
+func Hex(line string) string {
+	hex := regexp.MustCompile(`(?i)(\b\w+\b)\s?\(hex\)`)
+	for {
+		matchHex := hex.FindStringSubmatch(line)
+		if len(matchHex) == 0 {
+			break
+		}
+		hexNumber := matchHex[1]
+		decimalHex, err := strconv.ParseInt(hexNumber, 16, 64)
+		if err != nil {
+			break
+		}
+		line = strings.Replace(line, fmt.Sprintf("%s (hex)", hexNumber), fmt.Sprintf("%d", decimalHex), 1)
+		fields := strings.Fields(line)
+		line = strings.Join(fields, " ")
+	}
+	return line
+}
+
+func main() {
+	// filename := "sample.txt"
+
+	// file, err := os.Open(filename)
+	// if err != nil {
+	// 	fmt.Println("Error opening file:", err)
+	// 	return
+	// }
+	// defer file.Close()
+
+	// outputFile, err := os.Create("result.txt")
+	// if err != nil {
+	// 	fmt.Println("Error creating output file:", err)
+	// 	return
+	// }
+	// defer outputFile.Close()
+
+	if len(os.Args[1:]) != 2 {
+		fmt.Println("ERROR: Invalid Length of Argument!!!")
+		return
+	}
+
+	input := os.Args[1]
+	output := os.Args[2]
+	suf := ".txt"
+
+	if !strings.HasSuffix(input, suf) {
+		fmt.Println("ERROR: Invalid File EXtension!!!")
+		return
+	}
+
+	if !strings.HasSuffix(output, suf) {
+		fmt.Println("ERROR: Invalid File Extension!!!")
+		return
+	}
+
+	file1, err := os.Open(input)
+	if err != nil {
+		fmt.Println("ERROR: ", err)
+		return
+	}
+	defer file1.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		HexBin := mani.ReplaceHexAndBinNumbers(line)
+		UpInt := mani.UpInt(HexBin)
+		CapInt := mani.CapInt(UpInt)
+		LowInt := mani.LowInt(CapInt)
+		Vow := mani.Vow(LowInt)
+		Pung := mani.Pung(Vow)
+		SingleQ := mani.SingleQ(Pung)
+		fmt.Fprintln(outputFile, SingleQ)
+		fmt.Println(SingleQ)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error scanning file:", err)
+		return
+	}
+
+	fmt.Println("SUCCESS!!")
+}
