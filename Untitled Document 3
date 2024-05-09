@@ -14,3 +14,186 @@ func Hex(line string) string {
 	replacedLine := hex.ReplaceAllString(line, fmt.Sprintf("%d", decimalHex))
 
 	return replacedLine
+
+
+
+
+Issues
+Pull Requests
+Milestones
+Explore
+Intra
+Notifications
+Create…
+[Valentine Omolo] Profile and Settings…
+vomolo
+/
+go-reloaded
+Private
+Unwatch
+1
+Star
+0
+Fork
+0
+Code
+Issues
+Pull Requests
+Projects
+Releases
+Wiki
+Activity
+Settings
+No Description
+Manage Topics
+21 Commits
+1 Branch
+0 Tags
+640 KiB
+go-reloaded/main.go
+76 lines
+1.3 KiB
+Raw
+Permalink
+Blame
+History
+package main
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+	"go-reloaded/mani"
+)
+func main() {
+	if len(os.Args[1:]) != 2 {
+		fmt.Println("Error: length")
+		return
+	}
+	input := os.Args[1]
+	output := os.Args[2]
+	suf := ".txt"
+	if !strings.HasSuffix(input, suf) {
+		fmt.Println("Error: only .txt file extensions allowed!!!")
+		return
+	}
+	if !strings.HasSuffix(output, suf) {
+		fmt.Println("Error: only .txt file extensions allowed!!!")
+		return
+	}
+	file1, err := os.Open(input)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer file1.Close()
+	stat, err := file1.Stat()
+	if err != nil {
+		fmt.Println("ERROR: Failed to get input file stats!!!")
+		return
+	}
+	if stat.Size() == 0 {
+		fmt.Println("ERROR: File is empty!!!")
+		return
+	}
+	file2, err := os.Create(output)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer file2.Close()
+	scanner := bufio.NewScanner(file1)
+	for scanner.Scan() {
+		line := scanner.Text()
+		HexBin := mani.ReplaceHexAndBinNumbers(line)
+		UpInt := mani.UpInt(HexBin)
+		CapInt := mani.CapInt(UpInt)
+		LowInt := mani.LowInt(CapInt)
+		Vow := mani.Vow(LowInt)
+		Pung := mani.Pung(Vow)
+		SingleQ := mani.SingleQ(Pung)
+		fmt.Fprintln(file2, SingleQ)
+		fmt.Println(SingleQ)
+		if err := scanner.Err(); err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+	}
+}
+
+package mani
+import (
+	"regexp"
+	"strings"
+)
+func Pung(str string) string {
+	pung := regexp.MustCompile(`\s+([,.:;!?]+)`)
+	pun := regexp.MustCompile(`([,.:;!?]+)(\w+)`)
+	str = pung.ReplaceAllString(str, "$1")
+	str1 := pun.ReplaceAllString(str, "$1 $2")
+	return str1
+}
+func SingleQ(str string) string {
+	str = strings.ReplaceAll(str, "' ", " '")
+	str = strings.ReplaceAll(str, " '", "'")
+	return strings.TrimSpace(str)
+}
+
+
+
+package mani
+import "strings"
+func Vow(vow string) string {
+	split := strings.Fields(vow)
+	for i := 0; i < len(split); i++ {
+		if (split[i] == "a" || split[i] == "A") && (strings.Contains("aeiouhAEIOUH", string(split[i+1][0]))) {
+			if split[i] == "a" {
+				split[i] = "an"
+			} else {
+				split[i] = "An"
+			}
+		}
+	}
+	return strings.Join(split, " ")
+}
+
+
+
+package mani
+import (
+	"fmt"
+	"regexp"
+	"strconv"
+)
+func ReplaceHexAndBinNumbers(line string) string {
+	reHex := regexp.MustCompile(`(?i)(\b\w+\b)\s?\(hex\)`)
+	matchesHex := reHex.FindStringSubmatch(line)
+	hexNumber := "0"
+	if len(matchesHex) > 1 {
+		hexNumber = matchesHex[1]
+	}
+	decimalHex, err := strconv.ParseInt(hexNumber, 16, 64)
+	if err != nil {
+		// If the hex number cannot be parsed, it's already in decimal format, so leave it as is
+		return line
+	}
+	reBin := regexp.MustCompile(`(?i)(\b[0-1]+\b)\s?\(bin\)`)
+	matchesBin := reBin.FindStringSubmatch(line)
+	binNumber := "0"
+	if len(matchesBin) > 1 {
+		binNumber = matchesBin[1]
+	}
+	decimalBin, err := strconv.ParseInt(binNumber, 2, 64)
+	if err != nil {
+		// If the bin number cannot be parsed, it's already in decimal format, so leave it as is
+		return line
+	}
+	// Replace the hexadecimal and binary numbers with their decimal equivalents
+	replacedLine := reHex.ReplaceAllString(line, fmt.Sprintf("%d", decimalHex))
+	replacedLine = reBin.ReplaceAllString(replacedLine, fmt.Sprintf("%d", decimalBin))
+	return replacedLine
+}
+
+
+
+
