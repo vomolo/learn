@@ -1,0 +1,61 @@
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	args := os.Args[1:]
+	for _, str := range args {
+		for _, run := range str {
+			z01.PrintRune(run)
+		}
+		z01.PrintRune('\n')
+	}
+}
+
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+first Param
+
+func main() {
+	args := os.Args[1:]
+	if len(args) > 0 {
+		for _, run := range args[0] {
+			z01.PrintRune(run)
+		}
+	}
+	z01.PrintRune('\n')
+}
+
+
+last param
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	args := os.Args[1:]
+	las := len(args) - 1
+	for i := las; i >= 0; i-- {
+		for _, run := range args[i] {
+			z01.PrintRune(run)
+		}
+		z01.PrintRune('\n')
+
+	}
+}

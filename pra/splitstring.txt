@@ -1,0 +1,40 @@
+package main
+
+import (
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	str := "Hello World!"
+	var currentWord []rune
+	for _, run := range str {
+		if run == ' ' {
+			for _, char := range currentWord {
+				z01.PrintRune(char)
+			}
+			z01.PrintRune('\n')
+			currentWord = currentWord[:0]
+		} else {
+			currentWord = append(currentWord, run)
+		}
+	}
+	for _, char := range currentWord {
+		z01.PrintRune(char)
+	}
+	z01.PrintRune('\n')
+}
+
+
+
+Here's how the code works:
+
+    We initialize an empty slice called currentWord to store the characters of the current word.
+    We iterate over each rune in the str string using a for loop.
+    If the current rune is a space character (' '), it means we have reached the end of a word. In this case, we:
+        Print each character in the currentWord slice using a for loop and z01.PrintRune.
+        Print a newline character ('\n') to start a new line.
+        Reset the currentWord slice to an empty state using currentWord = currentWord[:0].
+    If the current rune is not a space character, we append it to the currentWord slice using currentWord = append(currentWord, run).
+    After the loop, there might be a word left in the currentWord slice. We print each character in the currentWord slice and then print a newline character.
+
+This code will split the string "Hello World!" into two words: "Hello" and "World!" and print each word on a new line.

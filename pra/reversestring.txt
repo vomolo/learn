@@ -1,0 +1,19 @@
+package main
+
+import (
+	"github.com/01-edu/z01"
+)
+
+func ReverseString(s string) {
+	runes := []rune(s)
+	las := len(runes) - 1
+
+	for i := las; i >= 0; i-- {
+		z01.PrintRune(runes[i])
+	}
+}
+
+func main() {
+	s := "Hello you"
+	ReverseString(s)
+}
