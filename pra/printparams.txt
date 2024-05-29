@@ -25,6 +25,28 @@ import (
 	"github.com/01-edu/z01"
 )
 
+func main() {
+	args := os.Args[1:]
+	las := len(args) - 1
+
+	for i := 0; i <= las; i++ {
+		for _, run := range args[i] {
+			z01.PrintRune(run)
+		}
+		z01.PrintRune('\n')
+	}
+}
+
+
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
 first Param
 
 func main() {
@@ -59,3 +81,23 @@ func main() {
 
 	}
 }
+
+
+COUNT Args
+
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	args := os.Args[1:]
+	num := len(args)
+	z01.PrintRune(rune(num) + '0')
+	z01.PrintRune('\n')
+}
+

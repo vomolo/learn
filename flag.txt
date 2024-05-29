@@ -1,0 +1,115 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"os"
+)
+
+func main() {
+	// Define a custom flag set
+	fs := flag.NewFlagSet("myapp", flag.ExitOnError)
+	fs.SetOutput(flag.CommandLine.Output())
+
+	// Define the color flag
+	var color bool
+	fs.BoolVar(&color, "color", false, "Print in color")
+
+	// Parse custom flags
+	customArgs := parseCustomFlags(fs, os.Args[1:])
+
+	// Handle custom flags
+	if color {
+		fmt.Println("Printing in color")
+	} else {
+		fmt.Println("Printing in default")
+	}
+
+	// You can continue handling other non-flag arguments in customArgs if needed
+	fmt.Println("Remaining arguments:", customArgs)
+}
+
+// parseCustomFlags separates custom flags with -- from the rest
+func parseCustomFlags(fs *flag.FlagSet, args []string) []string {
+	var customArgs []string
+	for i := 0; i < len(args); i++ {
+		arg := args[i]
+		if len(arg) > 2 && arg[:2] == "--" {
+			fs.Parse(args[i : i+1])
+		} else {
+			customArgs = append(customArgs, arg)
+		}
+	}
+	fs.Parse(nil) // parse remaining flags
+	return customArgs
+}
+
+
+
+
+package main
+
+import (
+	"flag"
+	"fmt"
+)
+
+type Color string
+
+const (
+	ColorBlack  = "\u001b[30m"
+	ColorRed    = "\u001b[31m"
+	ColorGreen  = "\u001b[32m"
+	ColorYellow = "\u001b[33m"
+	ColorBlue   = "\u001b[34m"
+	ColorReset  = "\u001b[0m"
+)
+
+func colorize(color Color, message string) {
+	fmt.Println(string(color), message, string(ColorReset))
+}
+
+func main() {
+	useColor := flag.Bool("color", false, "display colorized output")
+	flag.Parse()
+
+	if *useColor {
+		colorize(ColorBlue, "Hello, DigitalOcean!")
+		return
+	}
+	fmt.Println("Hello, DigitalOcean!")
+}
+
+
+
+package main
+
+import (
+	"flag"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+	// Iterate through the command-line arguments to ensure flags use "--" and "="
+	for _, arg := range os.Args[1:] {
+		if strings.HasPrefix(arg, "-") && !strings.HasPrefix(arg, "--") {
+			fmt.Fprintf(os.Stderr, "Error: Flags should use double dash (--), found: %s\n", arg)
+			os.Exit(1)
+		}
+		if strings.HasPrefix(arg, "--") && !strings.Contains(arg, "=") {
+			fmt.Fprintf(os.Stderr, "Error: Flags should use '=' to specify values, found: %s\n", arg)
+			os.Exit(1)
+		}
+	}
+
+	// Define the flag
+	nameofp := flag.String("name", "John Doe", "Name of the Person")
+
+	// Parse the flags
+	flag.Parse()
+
+	// Print the value of the flag
+	fmt.Println("Name:", *nameofp)
+}
