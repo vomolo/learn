@@ -1,33 +1,18 @@
 package main
 
-import (
-	"flag"
-	"fmt"
-	"os"
-	"strings"
-)
+import "os"
 
-func main() {
-	// Iterate through the command-line arguments to ensure flags use "--" and "="
-	for _, arg := range os.Args[1:] {
-		if strings.HasPrefix(arg, "-") && !strings.HasPrefix(arg, "--") {
-			fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]")
-			fmt.Println("EX: go run . --output=<fileName.txt> something standard")
-			fmt.Printf("found: %s\n", arg)
-			os.Exit(1)
+func Wordmatch(s1, s2 string) bool {
+	s1 := os.Args[1]
+	s2 := os.Args[2]
+
+	i, j := 0, 0
+
+	for i < len(s1) && j < len(s2) {
+		if s1[i] == s2[j] {
+			i++
 		}
-		if strings.HasPrefix(arg, "--") && !strings.Contains(arg, "=") {
-			fmt.Fprintf(os.Stderr, "Error: Flags should use '=' to specify values, found: %s\n", arg)
-			os.Exit(1)
-		}
+		j++
 	}
-
-	// Define the flag
-	nameofp := flag.String("name", "John Doe", "Name of the Person")
-
-	// Parse the flags
-	flag.Parse()
-
-	// Print the value of the flag
-	fmt.Println("Name:", *nameofp)
+	return i == len(s1)
 }
