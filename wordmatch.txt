@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-// Function to check if s1 can be formed from s2 while respecting the order
-func canFormString(s1, s2 string) bool {
+func Wordmatch(s1, s2 string) bool {
 	i, j := 0, 0
+
 	for i < len(s1) && j < len(s2) {
 		if s1[i] == s2[j] {
 			i++
@@ -18,20 +18,10 @@ func canFormString(s1, s2 string) bool {
 }
 
 func main() {
-	// Check if the correct number of arguments is provided
-	if len(os.Args) != 3 {
-		fmt.Println("Usage: go run . <s1> <s2>")
-		return
-	}
-
-	// Get the strings from command-line arguments
 	s1 := os.Args[1]
 	s2 := os.Args[2]
 
-	// Check if it's possible to form s1 from s2
-	if canFormString(s1, s2) {
+	if Wordmatch(s1, s2) {
 		fmt.Println(s1)
-	} else {
-		fmt.Println("No, it is not possible to write s1 using characters from s2 while respecting the order.")
 	}
 }
