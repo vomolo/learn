@@ -25,6 +25,24 @@ func main() {
 }
 
 
+package main
+
+import "github.com/01-edu/z01"
+
+func main() {
+	str := "hello world"
+
+	for _, ran := range str {
+		if ran == ' ' {
+			z01.PrintRune('\n')
+		} else {
+			z01.PrintRune(ran)
+		}
+	}
+	z01.PrintRune('\n')
+}
+
+
 
 Here's how the code works:
 

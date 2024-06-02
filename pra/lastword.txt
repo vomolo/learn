@@ -1,0 +1,17 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	inputString := "The quick brown fox jumps over the lazy dog."
+	lastWord := getLastWord(inputString)
+	fmt.Println(lastWord)
+}
+
+func getLastWord(str string) string {
+	words := strings.Split(str, " ")
+	return words[len(words)-1]
+}

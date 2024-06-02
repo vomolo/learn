@@ -1,18 +1,21 @@
 package main
 
 import (
-	"os"
-
 	"github.com/01-edu/z01"
 )
 
 func main() {
-	args := os.Args[1:]
-	// las := os.Args[len(args)-1]
-	// firs := os.Args[1]
-
-	for _, run := range args[0] {
-		z01.PrintRune(run)
+	str := " Hello World!"
+	var currentWord []rune
+	for _, run := range str {
+		if run == ' ' {
+			currentWord = currentWord[:0]
+		} else {
+			currentWord = append(currentWord, run)
+		}
+	}
+	for _, char := range currentWord {
+		z01.PrintRune(char)
 	}
 	z01.PrintRune('\n')
 }
