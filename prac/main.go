@@ -1,28 +1,27 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "strings"
+	"os"
+	"strings"
 )
 
-func main() {
-    if len(os.Args) != 2 {
-        fmt.Println("Usage: go run . --color=red kit 'a king kitten have kit'")
-        return
-    }
-    color := os.Args[1]
-    text := os.Args[2]
-    if color == "--color=red" {
-        for _, word := range strings.Split(text, " ") {
-            if word == "kitten" || word == "kit" {
-                fmt.Printf("\033[91m%s\033[0m\n", word)
-            } else {
-                fmt.Println(word)
-            }
-        }
-    } else {
-        fmt.Println("Invalid color. Supported colors are red.")
-    }
+func WordMatch(s1, s2 string) string {
+	if strings.Contains(s1, s2) {
+		return "Match found"
+	} else {
+		return "No match found"
+	}
 }
 
+func main() {
+	if len(os.Args) != 3 {
+		println("Usage: go run . <string1> <string2>")
+		return
+	}
+
+	s1 := os.Args[1]
+	s2 := os.Args[2]
+
+	result := WordMatch(s1, s2)
+	println(result)
+}
