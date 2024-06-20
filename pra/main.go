@@ -1,24 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
-
-func main() {
-	var lastWord string
-
-	inputString := os.Args[1]
-	las := len(inputString) - 1
-
-	for i := las; i > 0; i-- {
-		if inputString[i] == ' ' && lastWord == "" {
-			continue
-		}
-		if inputString[i] == ' ' && lastWord != "" {
-			break
-		}
-		lastWord = string(inputString[i]) + lastWord
+func rot14(c rune) rune {
+	if c >= 'A' && c < 'M' || c >= 'a' && c < 'm' {
+		return c + 14
 	}
-	fmt.Println(lastWord)
+	if c >= 'M' && c <= 'Z' || c >= 'm' && c <= 'z' {
+		return c - 12
+	}
+	return c
+}
+
+func Rot14(str string) string {
+	result := ""
+	for _, re := range str {
+		result += string(rot14(re))
+	}
+	return result
 }

@@ -2,64 +2,33 @@ package main
 
 import (
 	"fmt"
-	"strings"
-)
-
-func main() {
-	inputString := "The quick brown fox jumps over the lazy dog."
-	lastWord := getLastWord(inputString)
-	fmt.Println(lastWord)
-}
-
-func getLastWord(str string) string {
-	words := strings.Split(str, " ")
-	return words[len(words)-1]
-}
-
-
-package main
-
-import (
-	"github.com/01-edu/z01"
-)
-
-func main() {
-	str := " Hello World!"
-	var currentWord []rune
-	for _, run := range str {
-		if run == ' ' {
-			currentWord = currentWord[:0]
-		} else {
-			currentWord = append(currentWord, run)
-		}
-	}
-	for _, char := range currentWord {
-		z01.PrintRune(char)
-	}
-	z01.PrintRune('\n')
-}
-
-package main
-
-import (
-	"fmt"
 	"os"
 )
 
 func main() {
-	var lastWord string
+	arg := os.Args[0:]
 
-	inputString := os.Args[1]
-	las := len(inputString) - 1
+	if len(arg) == 2 {
 
-	for i := las; i > 0; i-- {
-		if inputString[i] == ' ' && lastWord == "" {
-			continue
+		args := os.Args[1]
+		las := len(args) - 1
+
+		var lastWord string
+
+		for i := las; i >= 0; i-- {
+			if args[i] == ' ' && lastWord == "" {
+				continue
+			}
+			if args[i] == ' ' && lastWord != "" {
+				break
+			}
+			{
+				lastWord = string(args[i]) + lastWord
+			}
 		}
-		if inputString[i] == ' ' && lastWord != "" {
-			break
+		if lastWord == "" {
+			return
 		}
-		lastWord = string(inputString[i]) + lastWord
+		fmt.Println(lastWord)
 	}
-	fmt.Println(lastWord)
 }
