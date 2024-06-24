@@ -1,19 +1,20 @@
 package main
 
-func rot14(c rune) rune {
-	if c >= 'A' && c < 'M' || c >= 'a' && c < 'm' {
-		return c + 14
+import (
+	"github.com/01-edu/z01"
+)
+
+func FirstRune(s string) {
+	for i, char := range s {
+		if i == 0 {
+			z01.PrintRune(char)
+		}
 	}
-	if c >= 'M' && c <= 'Z' || c >= 'm' && c <= 'z' {
-		return c - 12
-	}
-	return c
 }
 
-func Rot14(str string) string {
-	result := ""
-	for _, re := range str {
-		result += string(rot14(re))
-	}
-	return result
+func main() {
+	// z01.PrintRune(FirstRune("Hello!"))
+	// z01.PrintRune(FirstRune("Salut!"))
+	FirstRune("💗Ola!")
+	z01.PrintRune('\n')
 }
