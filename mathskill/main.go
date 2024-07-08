@@ -77,8 +77,8 @@ func main() {
 	median := math.Round(functions.ComputeMedian(numbers))
 
 	// Print results
-	fmt.Printf("Average: %d\n", int(average))
-	fmt.Printf("Median: %d\n", int(median))
-	fmt.Printf("Variance: %d\n", int(variance))
-	fmt.Printf("Standard Deviation: %d\n", int(stdDev))
+	fmt.Printf("Average: %.0f\n", average)
+	fmt.Printf("Median: %.0f\n", median)
+	fmt.Printf("Variance: %.0f\n", variance)
+	fmt.Printf("Standard Deviation: %.0f\n", stdDev)
 }
