@@ -4,28 +4,49 @@ import (
 	"bufio"
 	"fmt"
 	"math"
-	"mathskill/functions"
 	"os"
 	"strconv"
+	"strings"
+
+	"mathskill/functions"
 )
 
 func main() {
-	// Check if a file path is provided
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go <file_path>")
+	useMes := "Expecting: go run your-program.go data.txt"
+
+	// Length of arguments check
+	if len(os.Args) != 2 {
+		fmt.Println(useMes)
+		fmt.Println("Check length of arguments")
 		return
 	}
 
-	// Open the file
 	filePath := os.Args[1]
-	file, err := os.Open(filePath)
+
+	// Check .txt file extension
+	if !strings.HasSuffix(filePath, ".txt") {
+		fmt.Println(useMes)
+		fmt.Println("Make sure it's a .txt file extension")
+		os.Exit(1)
+	}
+
+	fileCheck, err := os.Stat(filePath)
 	if err != nil {
-		fmt.Printf("failed to open file: %s\n", err)
+		if os.IsNotExist(err) {
+			fmt.Println("File does not exist")
+			return
+		}
+		fmt.Println("Error checking file:", err)
 		return
 	}
-	defer file.Close()
 
-	// Read the data
+	if fileCheck.Size() == 0 {
+		fmt.Println("File is empty")
+		return
+	}
+	file, _ := os.Open(filePath)
+
+	defer file.Close()
 
 	var numbers []float64
 	scanner := bufio.NewScanner(file)
@@ -60,5 +81,4 @@ func main() {
 	fmt.Printf("Median: %d\n", int(median))
 	fmt.Printf("Variance: %d\n", int(variance))
 	fmt.Printf("Standard Deviation: %d\n", int(stdDev))
-
 }
