@@ -51,7 +51,11 @@ func main() {
 	var numbers []float64
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		num, err := strconv.ParseFloat(scanner.Text(), 64)
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		num, err := strconv.ParseFloat(line, 64)
 		if err != nil {
 			fmt.Printf("failed to parse number: %s\n", err)
 			return
