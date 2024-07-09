@@ -1,7 +1,11 @@
 package functions
 
 func ComputeAverage(numbers []float64) float64 {
-	sum := 0.0
+	if len(numbers) == 0 {
+		return 0.0
+	}
+
+	var sum float64
 	for _, num := range numbers {
 		sum += num
 	}
