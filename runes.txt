@@ -1,0 +1,38 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	if len(os.Args) == 2 {
+		arg := os.Args[1]
+		las := len(arg) - 1
+
+		var lastWord string
+
+		for i := las; i >= 0; i-- {
+			if arg[i] == ' ' && lastWord == "" {
+				continue
+			}
+
+			if arg[i] == ' ' && lastWord != "" {
+				break
+			}
+			lastWord = lastWord + string(arg[i])
+
+		}
+		fmt.Println(lastWord)
+		s := lastWord
+		lasr := len(s) - 1
+		var ft string
+
+		for i := lasr; i >= 0; i-- {
+			ft += string(s[i])
+		}
+
+		fmt.Println(ft)
+
+	}
+}
