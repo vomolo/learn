@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +21,8 @@
         <button type="button" id="standardBtn">Standard</button>
         <button type="button" id="shadowBtn">Shadow</button>
         <button type="button" id="thinkertoyBtn">Thinkertoy</button>
+        <button type="button" id="generateBtn">Generate ASCII Art</button>
+
     </form>
     <h2>Output:</h2>
     <div id="result"></div>
@@ -40,16 +41,29 @@
         }
 
         document.getElementById('standardBtn').addEventListener('click', function () {
-            generateASCIIArt('standard');
-        });
+    this.classList.add('active');
+    document.getElementById('shadowBtn').classList.remove('active');
+    document.getElementById('thinkertoyBtn').classList.remove('active');
+});
 
-        document.getElementById('shadowBtn').addEventListener('click', function () {
-            generateASCIIArt('shadow');
-        });
+document.getElementById('shadowBtn').addEventListener('click', function () {
+    this.classList.add('active');
+    document.getElementById('standardBtn').classList.remove('active');
+    document.getElementById('thinkertoyBtn').classList.remove('active');
+});
 
-        document.getElementById('thinkertoyBtn').addEventListener('click', function () {
-            generateASCIIArt('thinkertoy');
-        });
+document.getElementById('thinkertoyBtn').addEventListener('click', function () {
+    this.classList.add('active');
+    document.getElementById('standardBtn').classList.remove('active');
+    document.getElementById('shadowBtn').classList.remove('active');
+});
+
+document.getElementById('generateBtn').addEventListener('click', function () {
+    // Call the generateASCIIArt function with the selected style
+    var selectedStyle = document.querySelector('button.active').id.replace('Btn', '');
+    generateASCIIArt(selectedStyle);
+});
+
     </script>
 </body>
 </html>

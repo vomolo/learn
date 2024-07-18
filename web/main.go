@@ -52,8 +52,8 @@ func main() {
 		w.Write([]byte(response))
 	})
 
-	fmt.Println("Server is listening on port 8081...")
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	fmt.Println("Server is listening on port 8080...")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 // logic for printing the asciii banner files in the required format
