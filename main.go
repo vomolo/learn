@@ -1,4 +1,4 @@
-package solutions
+package main
 
 import (
 	"fmt"
@@ -13,20 +13,9 @@ func Atoi(s string) (int, error) {
 	n := len(s)
 
 	// Skip leading whitespace
-	// for i < n && (s[i] == ' ' || s[i] == '\t') {
-	// 	i++
-	// }
-
-	// Remove all spaces and tabs manually
-	var cleanedString []byte
-	for j := 0; j < n; j++ {
-		if s[j] != ' ' && s[j] != '\t' {
-			cleanedString = append(cleanedString, s[j])
-		}
+	for i < n && (s[i] == ' ' || s[i] == '\t') {
+		i++
 	}
-	s = string(cleanedString)
-
-	n = len(s) // Update length after cleaning
 
 	// Check for optional sign
 	if i < n {

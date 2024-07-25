@@ -1,21 +1,22 @@
 package solutions
 
-import "strings"
+import "fmt"
 
-func ThirdTimeIsACharm(arg string) string {
-	if arg == "" || len(arg) < 3 {
-		return "\n"
+func ThirdTimeIsACharm(str string) string {
+	res := ""
+
+	for i := 2; i < len(str); i += 3 {
+		res += string(str[i])
 	}
-	var str strings.Builder
-	for i := 0; i < len(arg); i++ {
-		if i == 0 {
-			continue
-		}
-		j := i + 1
-		if j%3 == 0 {
-			str.WriteRune(rune(arg[i]))
-		}
-	}
-	str.WriteRune(rune('\n'))
-	return (str.String())
+
+	return res + "\n"
 }
+
+func main() {
+	fmt.Print(ThirdTimeIsACharm("123456789"))
+	fmt.Print(ThirdTimeIsACharm(""))
+	fmt.Print(ThirdTimeIsACharm("a b c d e f"))
+	fmt.Print(ThirdTimeIsACharm("12"))
+}
+
+// fixed
