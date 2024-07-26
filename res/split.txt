@@ -1,0 +1,38 @@
+package main
+
+import "fmt"
+
+func main() {
+    // Original string
+    sentence := "Go is an open-source programming language"
+
+    // Splitting the string into a slice of words
+    words := splitString(sentence)
+
+    // Ranging over the slice of words
+    for index, word := range words {
+        fmt.Printf("Word %d: %s\n", index, word)
+    }
+}
+
+func splitString(str string) []string {
+    var words []string
+    var currentWord []rune
+
+    for _, char := range str {
+        if char == ' ' {
+            if len(currentWord) > 0 {
+                words = append(words, string(currentWord))
+                currentWord = currentWord[:0]
+            }
+        } else {
+            currentWord = append(currentWord, char)
+        }
+    }
+
+    if len(currentWord) > 0 {
+        words = append(words, string(currentWord))
+    }
+
+    return words
+}

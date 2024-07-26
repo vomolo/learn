@@ -1,60 +1,38 @@
 package main
 
-import (
-	"fmt"
-)
-
-// Atoi converts a string to an integer.
-func Atoi(s string) (int, error) {
-	// Initialize variables
-	sign := 1
-	result := 0
-	i := 0
-	n := len(s)
-
-	// Skip leading whitespace
-	for i < n && (s[i] == ' ' || s[i] == '\t') {
-		i++
-	}
-
-	// Check for optional sign
-	if i < n {
-		if s[i] == '-' {
-			sign = -1
-			i++
-		} else if s[i] == '+' {
-			i++
-		}
-	}
-
-	// Process digits
-	for i < n {
-		digit := int(s[i] - '0')
-		if digit < 0 || digit > 9 {
-			return 0, fmt.Errorf("invalid character: %c", s[i])
-		}
-
-		// Check for overflow
-		if result > (2147483647-digit)/10 {
-			return 0, fmt.Errorf("integer overflow")
-		}
-
-		result = result*10 + digit
-		i++
-	}
-
-	return sign * result, nil
-}
+import "fmt"
 
 func main() {
-	tests := []string{"123  ", "-456", "   +789", "42abc", "2147483648", "", "   -42"}
+	// Original string
+	sentence := "Go is an open-source programming language"
 
-	for _, test := range tests {
-		result, err := Atoi(test)
-		if err != nil {
-			fmt.Printf("Atoi(%q) = error: %v\n", test, err)
+	// Splitting the string into a slice of words
+	words := splitString(sentence)
+
+	// Ranging over the slice of words
+	for index, word := range words {
+		fmt.Printf("Word %d: %s\n", index, word)
+	}
+}
+
+func splitString(str string) []string {
+	var words []string
+	var currentWord []rune
+
+	for _, char := range str {
+		if char == ' ' {
+			if len(currentWord) > 0 {
+				words = append(words, string(currentWord))
+				currentWord = currentWord[:0]
+			}
 		} else {
-			fmt.Printf("Atoi(%q) = %d\n", test, result)
+			currentWord = append(currentWord, char)
 		}
 	}
+
+	if len(currentWord) > 0 {
+		words = append(words, string(currentWord))
+	}
+
+	return words
 }
