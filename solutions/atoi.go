@@ -57,7 +57,7 @@ func Atoi(s string) (int, error) {
 	return sign * result, nil
 }
 
-func main() {
+func solutions() {
 	tests := []string{"123  ", "-456", "   +789", "42abc", "2147483648", "", "   -42"}
 
 	for _, test := range tests {
