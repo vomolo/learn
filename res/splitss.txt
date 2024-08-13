@@ -39,14 +39,19 @@ import "fmt"
 
 func WordSlice(str string) string {
 	var result []rune
+	var inWord bool
 
 	for i := 0; i < len(str); i++ {
 		if str[i] != ' ' {
-			start := i
-			for i < len(str) && str[i] != ' ' {
-				i++
+			if !inWord {
+				if len(result) > 0 {
+					result = append(result, ' ')
+				}
+				inWord = true
 			}
-			result = append(result, []rune(str[start:i])...)
+			result = append(result, rune(str[i]))
+		} else {
+			inWord = false
 		}
 	}
 
@@ -57,4 +62,61 @@ func main() {
 	input := "   Hello    World!   This is   a   test.   "
 	result := WordSlice(input)
 	fmt.Println(result) // Output: "Hello World! This is a test."
+}
+
+
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func WordSlice(input string) string {
+	// Initialize an empty result string and a flag for space tracking
+	result := ""
+	spaceFlag := false
+
+	// Iterate through each character in the input string
+	for _, char := range input {
+		if char != ' ' { // If the character is not a space
+			result += string(char) // Append the character to the result
+			spaceFlag = false       // Reset the space flag
+		} else if !spaceFlag { // If the character is a space and we haven't added a space yet
+			result += " " // Append a single space to the result
+			spaceFlag = true // Set the space flag to true
+		}
+	}
+
+	// Trim leading and trailing spaces from the result
+	return trimSpaces(result)
+}
+
+// trimSpaces removes leading and trailing spaces from the string
+func trimSpaces(s string) string {
+	start := 0
+	end := len(s) - 1
+
+	// Find the first non-space character
+	for start <= end && s[start] == ' ' {
+		start++
+	}
+
+	// Find the last non-space character
+	for end >= start && s[end] == ' ' {
+		end--
+	}
+
+	// Return the trimmed string
+	if start > end {
+		return "" // Return empty string if all spaces
+	}
+	return s[start : end+1]
+}
+
+func main() {
+	input := "   Hello       World!     This is     a    test.   "
+	result := WordSlice(input)
+	fmt.Println(result) // Output: "Hello  World!  This  is  a  test."
 }
