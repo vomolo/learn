@@ -1,0 +1,55 @@
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	input := "Hello, world❤️🤣😀!!"
+	cleanedString, doubleChars := removeDuplicates(input)
+	fmt.Println(cleanedString)
+	fmt.Println("Double characters:", doubleChars)
+}
+
+func removeDuplicates(str string) (string, string) {
+	seen := make(map[rune]bool)
+	var result []rune
+	var doubleChars []rune
+	for _, char := range str {
+		if seen[char] {
+			doubleChars = append(doubleChars, char)
+		} else {
+			seen[char] = true
+			result = append(result, char)
+		}
+	}
+	return string(result), string(doubleChars)
+}
+
+
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	input := "Hello, world❤️🤣😀!!"
+	cleanedString := removeDuplicates(input)
+	fmt.Println(cleanedString)
+}
+
+func removeDuplicates(str string) string {
+	seen := make(map[rune]bool)
+	var result []rune
+	for _, char := range str {
+		if !seen[char] {
+			seen[char] = true
+			result = append(result, char)
+		}
+	}
+	return string(result)
+}
+
