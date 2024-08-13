@@ -1,0 +1,60 @@
+package main
+
+import "fmt"
+
+func WordSlice(str string) string {
+	var word []rune
+	var result []rune
+
+	for i, char := range str {
+		if char != ' ' {
+			word = append(word, char)
+		} else if len(word) > 0 {
+			result = append(result, word...)
+			result = append(result, ' ')
+			word = nil
+		}
+
+		if i == len(str)-1 && len(word) > 0 {
+			result = append(result, word...)
+		}
+	}
+
+	return string(result)
+}
+
+func main() {
+	input := "   Hello    World!   This is   a   test.   "
+	result := WordSlice(input)
+	fmt.Println(result) // Output: "Hello World! This is a test."
+}
+
+
+
+
+
+package main
+
+import "fmt"
+
+func WordSlice(str string) string {
+	var result []rune
+
+	for i := 0; i < len(str); i++ {
+		if str[i] != ' ' {
+			start := i
+			for i < len(str) && str[i] != ' ' {
+				i++
+			}
+			result = append(result, []rune(str[start:i])...)
+		}
+	}
+
+	return string(result)
+}
+
+func main() {
+	input := "   Hello    World!   This is   a   test.   "
+	result := WordSlice(input)
+	fmt.Println(result) // Output: "Hello World! This is a test."
+}
