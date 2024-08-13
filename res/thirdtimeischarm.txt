@@ -1,0 +1,20 @@
+package main
+
+import "fmt"
+
+func ThirdTimeIsACharm(str string) string {
+	las := len(str)
+	var wor string
+
+	for i := 2; i < las; i += 3 {
+		wor += string(str[i])
+	}
+	return wor + "\n"
+}
+
+func main() {
+	fmt.Print(ThirdTimeIsACharm("123456789"))
+	fmt.Print(ThirdTimeIsACharm(""))
+	fmt.Print(ThirdTimeIsACharm("a b c d e f"))
+	fmt.Print(ThirdTimeIsACharm("12"))
+}
