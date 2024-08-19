@@ -3,6 +3,7 @@
 // import "fmt"
 
 // func main() {
+<<<<<<< HEAD
 // 	// Original string
 // 	sentence := "  Go is    an open-source programming language   "
 
@@ -52,12 +53,48 @@
 // 	}
 
 // 	return result
+=======
+// 	str := "    hello  good     morning   "
+// 	res := TrimSpace1(str)
+// 	res1 := WordSlice(res)
+// 	fmt.Println(res1)
+// }
+
+// func TrimSpace1(str string) string {
+// 	start := 0
+// 	end := len(str) - 1
+
+// 	for start < end && str[start] == ' ' {
+// 		start++
+// 	}
+
+// 	for end > start && str[end] == ' ' {
+// 		end--
+// 	}
+// 	return str[start:end]
+// }
+
+// func WordSlice(str string) string {
+// 	var word []rune
+
+// 	for _, cha := range str {
+// 		if cha != ' ' {
+// 			word = append(word, cha)
+// 		}
+
+// 		if cha == ' ' {
+// 			fmt.Println()
+// 		}
+// 	}
+// 	return string(word)
+>>>>>>> 858dd8937aa104d139412cd8a7050fce8b2b7461
 // }
 
 package main
 
 import "fmt"
 
+<<<<<<< HEAD
 func TrimSpaces(str string) string {
 	start := 0
 	end := len(str) - 1
@@ -87,6 +124,33 @@ func InputSpaces(str string) string {
 		}
 	}
 	return res
+=======
+func WordSlice(str string) string {
+	var word []rune
+	var result []rune
+
+	for i, char := range str {
+		if char != ' ' {
+			word = append(word, char)
+		} else if len(word) > 0 {
+			result = append(result, word...)
+			result = append(result, '   ')
+			word = nil
+		}
+
+		if i == len(str)-1 && len(word) > 0 {
+			result = append(result, word...)
+		}
+	}
+
+	return string(result)
+}
+
+func main() {
+	input := "   Hello       World!     This is     a    test.   "
+	result := WordSlice(input)
+	fmt.Println(result) // Output: "Hello  World!  This  is  a  test."
+>>>>>>> 858dd8937aa104d139412cd8a7050fce8b2b7461
 }
 
 func main() {
