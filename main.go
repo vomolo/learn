@@ -1,70 +1,67 @@
-// package main
-
-// import "fmt"
-
-// func main() {
-// 	str := "    hello  good     morning   "
-// 	res := TrimSpace1(str)
-// 	res1 := WordSlice(res)
-// 	fmt.Println(res1)
-// }
-
-// func TrimSpace1(str string) string {
-// 	start := 0
-// 	end := len(str) - 1
-
-// 	for start < end && str[start] == ' ' {
-// 		start++
-// 	}
-
-// 	for end > start && str[end] == ' ' {
-// 		end--
-// 	}
-// 	return str[start:end]
-// }
-
-// func WordSlice(str string) string {
-// 	var word []rune
-
-// 	for _, cha := range str {
-// 		if cha != ' ' {
-// 			word = append(word, cha)
-// 		}
-
-// 		if cha == ' ' {
-// 			fmt.Println()
-// 		}
-// 	}
-// 	return string(word)
-// }
-
 package main
 
 import "fmt"
 
-func WordSlice(str string) string {
-	var word []rune
-	var result []rune
+func TrimSpaces(str string) string {
+	start := 0
+	end := len(str) - 1
 
-	for i, char := range str {
-		if char != ' ' {
-			word = append(word, char)
-		} else if len(word) > 0 {
-			result = append(result, word...)
-			result = append(result, '   ')
-			word = nil
-		}
-
-		if i == len(str)-1 && len(word) > 0 {
-			result = append(result, word...)
-		}
+	for start <= end && str[start] == ' ' {
+		start++
 	}
 
-	return string(result)
+	for end >= start && str[end] == ' ' {
+		end--
+	}
+
+	return str[start : end+1]
+}
+
+func RemSpaces(str string) string {
+	res := ""
+
+	for _, char := range str {
+		if char != ' ' {
+			res += string(char)
+		} else if char == ' ' {
+			res += " "
+		}
+	}
+	return res
+}
+
+func UnderScore(str string) string {
+	res := ""
+
+	for _, char := range str {
+		if char != ' ' {
+			res += string(char)
+		} else if char == ' ' {
+			res += "_"
+		}
+	}
+	return res
+}
+
+func UnderscoreCapital(str string) string {
+	res := ""
+
+	for i, char := range str {
+		if char >= 'A' && char <= 'Z' && i > 0 && str[i-1] != '_' {
+			res += "_" // Add underscore before the capital letter
+		}
+		res += string(char)
+	}
+
+	return res
 }
 
 func main() {
-	input := "   Hello       World!     This is     a    test.   "
-	result := WordSlice(input)
-	fmt.Println(result) // Output: "Hello  World!  This  is  a  test."
+	str := "   hey JudeTimeYYes  "
+	trim := TrimSpaces(str)
+	rem := RemSpaces(trim)
+	fmt.Println(rem)
+	under := UnderScore(rem)
+	un := UnderscoreCapital(under)
+	fmt.Println(un)
 }
