@@ -53,3 +53,34 @@ func removeDuplicates(str string) string {
 	return string(result)
 }
 
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	input := "Hello, world❤️🤣😀!!"
+	cleanedString := removeDuplicates(input)
+	fmt.Println(cleanedString)
+}
+
+func removeDuplicates(str string) string {
+	var result []rune
+	for _, char := range str {
+		if !contains(result, char) {
+			result = append(result, char)
+		}
+	}
+	return string(result)
+}
+
+func contains(slice []rune, char rune) bool {
+	for _, c := range slice {
+		if c == char {
+			return true
+		}
+	}
+	return false
+}
