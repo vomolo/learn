@@ -120,3 +120,57 @@ func main() {
 	result := WordSlice(input)
 	fmt.Println(result) // Output: "Hello  World!  This  is  a  test."
 }
+
+
+
+
+
+func TrimSpaces(str string) string {
+	start := 0
+	end := len(str) - 1
+
+	for start <= end && str[start] == ' ' {
+		start++
+	}
+
+	for end >= start && str[end] == ' ' {
+		end--
+	}
+
+	return str[start : end+1]
+}
+
+func RemSpaces(str string) string {
+	res := ""
+
+	for _, char := range str {
+		if char != ' ' {
+			res += string(char)
+		} else if char == ' ' {
+			res += " "
+		}
+	}
+	return res
+}
+
+func UnderScore(str string) string {
+	res := ""
+
+	for _, char := range str {
+		if char != ' ' {
+			res += string(char)
+		} else if char == ' ' {
+			res += "_"
+		}
+	}
+	return res
+}
+
+func main() {
+	str := "   hey Jude  "
+	trim := TrimSpaces(str)
+	rem := RemSpaces(trim)
+	fmt.Println(rem)
+	under := UnderScore(rem)
+	fmt.Println(under)
+}
