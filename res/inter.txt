@@ -1,0 +1,44 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// containsRune checks if a rune is already in the slice.
+func containsRune(runes []rune, target rune) bool {
+	for _, r := range runes {
+		if r == target {
+			return true
+		}
+	}
+	return false
+}
+
+// result finds the common characters between two strings, ensuring each common character is included only once.
+func result(s1 string, s2 string) string {
+	var rest []rune
+	for _, a := range s1 {
+		for _, b := range s2 {
+			if a == b && !containsRune(rest, a) {
+				rest = append(rest, a)
+			}
+		}
+	}
+	return string(rest)
+}
+
+func main() {
+	// Check if the correct number of command-line arguments is provided.
+	if len(os.Args) != 3 {
+		fmt.Println("Usage: go run main.go <string1> <string2>")
+		return
+	}
+
+	// Get the command-line arguments.
+	s1 := os.Args[1]
+	s2 := os.Args[2]
+
+	// Find and print the common characters.
+	fmt.Println(result(s1, s2))
+}
