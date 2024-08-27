@@ -1,0 +1,96 @@
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// Prompt the user for their name
+	var name string
+	fmt.Print("Enter your name: ")
+	fmt.Scanln(&name)
+
+	// Prompt the user for their age
+	var age int
+	fmt.Print("Enter your age: ")
+	fmt.Scanln(&age)
+
+	// Print the user's name and age
+	fmt.Printf("Hello, %s! You are %d years old.\n", name, age)
+}
+
+
+package main
+
+import (
+	"fmt"
+)
+
+// Person struct to hold name and age
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	// Create a new Person instance
+	var person Person
+
+	// Prompt the user for their name
+	fmt.Print("Enter your name: ")
+	fmt.Scanln(&person.Name)
+
+	// Prompt the user for their age
+	fmt.Print("Enter your age: ")
+	fmt.Scanln(&person.Age)
+
+	// Print the user's name and age
+	fmt.Printf("Hello, %s! You are %d years old.\n", person.Name, person.Age)
+}
+
+
+package main
+
+import (
+	"fmt"
+)
+
+// Person struct to hold name and age
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	// Create a slice to store multiple people
+	var people []Person
+
+	// Prompt the user for the number of people
+	var numPeople int
+	fmt.Print("Enter the number of people: ")
+	fmt.Scanln(&numPeople)
+
+	// Loop to get data for each person
+	for i := 0; i < numPeople; i++ {
+		fmt.Printf("Enter data for person %d:\n", i+1)
+
+		// Create a new Person instance
+		var person Person
+
+		// Prompt the user for name and age
+		fmt.Print("Name: ")
+		fmt.Scanln(&person.Name)
+		fmt.Print("Age: ")
+		fmt.Scanln(&person.Age)
+
+		// Append the person to the slice
+		people = append(people, person)
+	}
+
+	// Print the data for each person
+	fmt.Println("\nPeople:")
+	for _, person := range people {
+		fmt.Printf("Name: %s, Age: %d\n", person.Name, person.Age)
+	}
+}
+
