@@ -7,16 +7,16 @@ import (
 
 func main() {
 	args := os.Args[1:]
-	//args1 := os.Args[1]
-	//args2 := os.Args[2]
+	// args1 := os.Args[1]
+	// args2 := os.Args[2]
 
 	res1 := sliceString(args)
 	res2 := lowerCaps(res1)
 	res3 := lastCap(res2)
 	// args3 := os.Args[3]
 	fmt.Println(args)
-	//fmt.Println(args1)
-	//fmt.Println(args2)
+	// fmt.Println(args1)
+	// fmt.Println(args2)
 	fmt.Println(res3)
 	// fmt.Println(args3)
 }
@@ -28,7 +28,6 @@ func sliceString(str []string) string {
 		res += string(char) + "\n"
 	}
 	return res
-
 }
 
 func lowerCaps(str string) string {
@@ -39,10 +38,8 @@ func lowerCaps(str string) string {
 			char = char + 32
 			res += string(char)
 		} else {
-
 			res += string(char)
 		}
-
 	}
 	return res
 }

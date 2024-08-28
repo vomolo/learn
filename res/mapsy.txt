@@ -1,0 +1,36 @@
+
+func main() {
+	// Example input string
+	input := "heleloa world"
+
+	// Call the function to check for duplicate characters
+	checkDuplicateCharacters(input)
+}
+
+// checkDuplicateCharacters checks for characters that appear more than once
+func checkDuplicateCharacters(s string) {
+	// Create a map to store character counts
+	charCount := make(map[rune]int)
+
+	// Iterate over each character in the string
+	for _, char := range s {
+		charCount[char]++
+	}
+	fmt.Println(charCount)
+
+	// Flag to check if any duplicates were found
+	duplicatesFound := false
+
+	// Iterate over the map to find characters with counts greater than 1
+	for char, count := range charCount {
+		if count > 1 {
+			fmt.Printf("Character '%c' appears %d times\n", char, count)
+			duplicatesFound = true
+		}
+	}
+
+	// If no duplicates were found
+	if !duplicatesFound {
+		fmt.Println("No characters appear more than once.")
+	}
+}
