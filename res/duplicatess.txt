@@ -1,0 +1,82 @@
+package main
+
+import "fmt"
+
+func main() {
+    str := "Hello World"
+    result := duplicate(str)
+    fmt.Println(result) // Output: "Helo Wrd"
+}
+
+func duplicate(str string) string {
+    seen := make(map[rune]bool) // Create a map to track seen characters
+    var result []rune           // Use a slice to build the result string
+
+    for _, char := range str {  // Iterate over each character in the string
+        if !seen[char] {        // Check if the character has not been seen
+            seen[char] = true   // Mark the character as seen
+            result = append(result, char) // Add the character to the result
+        }
+    }
+
+    return string(result) // Convert the slice back to a string
+}
+
+
+
+
+package main
+
+import "fmt"
+
+func main() {
+    str := "Hello World"
+    result := findDuplicates(str)
+    fmt.Println(result) // Output: "l o "
+}
+
+func findDuplicates(str string) string {
+    seen := make(map[rune]int) // Create a map to track character counts
+    var duplicates []rune     // Use a slice to store duplicate characters
+
+    for _, char := range str { // Iterate over each character in the string
+        seen[char]++          // Increment the count for the character
+        if seen[char] > 1 {   // If the count is greater than 1, it's a duplicate
+            duplicates = append(duplicates, char) // Add the character to the duplicates slice
+        }
+    }
+
+    return string(duplicates) // Convert the slice of runes to a string
+}
+
+
+
+
+package main
+
+import "fmt"
+
+func main() {
+    str := "Hello World"
+    char, count := mostFrequentChar(str)
+    fmt.Printf("Character: '%c', Count: %d\n", char, count) // Output: Character: 'l', Count: 3
+}
+
+func mostFrequentChar(str string) (rune, int) {
+    seen := make(map[rune]int) // Create a map to track character counts
+    var maxChar rune            // Variable to store the character with the maximum count
+    maxCount := 0              // Variable to store the maximum count
+
+    for _, char := range str { // Iterate over each character in the string
+        seen[char]++           // Increment the count for the character
+
+        // Check if the current character's count is greater than maxCount
+        if seen[char] > maxCount {
+            maxCount = seen[char] // Update maxCount
+            maxChar = char        // Update maxChar
+        }
+    }
+
+    return maxChar, maxCount // Return the character and its count
+}
+
