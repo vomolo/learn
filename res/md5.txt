@@ -1,0 +1,25 @@
+package main
+
+import (
+    "crypto/md5"
+    "encoding/hex"
+    "fmt"
+)
+
+func main() {
+    input := "abcdef609043"
+    hash := md5.Sum([]byte(input))
+    hashString := hex.EncodeToString(hash[:])
+    fmt.Println(hashString)
+}
+
+import (
+    "crypto/md5"
+    "encoding/hex"
+)
+
+func GetMD5Hash(text string) string {
+    hasher := md5.New()
+    hasher.Write([]byte(text))
+    return hex.EncodeToString(hasher.Sum(nil))
+}
