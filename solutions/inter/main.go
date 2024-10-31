@@ -3,23 +3,34 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 )
 
-func result(s1 string, s2 string) string {
-	var rest []rune
-	for _, a := range s1 {
-		for _, b := range s2 {
-			if a == b && !strings.ContainsRune(string(rest), a) {
-				rest = append(rest, a)
-			}
+func main() {
+	args := os.Args[1:]
+
+	if len(args) != 2 {
+		return
+	}
+
+	s1 := os.Args[1]
+	s2 := os.Args[2]
+
+	store := make(map[rune]bool)
+
+	for _, char2 := range s2 {
+		store[char2] = true
+	}
+
+	seen := make(map[rune]bool)
+	sli := []rune{}
+
+	for _, char1 := range s1 {
+		if store[char1] && !seen[char1] {
+			sli = append(sli, char1)
+			seen[char1] = true
 		}
 	}
-	return string(rest)
-}
 
-func main() {
-	if len(os.Args) == 3 {
-		fmt.Println(result(os.Args[1], os.Args[2]))
-	}
+	fmt.Println(string(sli))
+
 }

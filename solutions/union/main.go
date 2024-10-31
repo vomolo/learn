@@ -3,26 +3,34 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
-	if len(os.Args) == 3 {
-		var res string
-		s1 := os.Args[1]
-		s2 := os.Args[2]
+	args := os.Args[1:]
 
-		for _, v := range s1 {
-			if !strings.ContainsRune(res, v) {
-				res += string(v)
-			}
-		}
-		for _, v := range s2 {
-			if !strings.ContainsRune(res, v) {
-				res += string(v)
-			}
-		}
-		fmt.Print(res)
+	if len(args) != 2 {
+		fmt.Println()
 	}
+
+	s1 := os.Args[1]
+	s2 := os.Args[2]
+
+	store := []rune{}
+
+	seen := make(map[rune]bool)
+	for _, char1 := range s1 {
+		if !seen[char1] {
+			store = append(store, char1)
+			seen[char1] = true
+		}
+	}
+	for _, char2 := range s2 {
+
+		if !seen[char2] {
+			store = append(store, char2)
+			seen[char2] = true
+		}
+	}
+	fmt.Print(string(store))
 	fmt.Println()
 }
