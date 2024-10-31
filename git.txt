@@ -1,0 +1,87 @@
+# GIT REPORT
+
+## CREATE WORK DIRECTORY
+
+
+- Created a work directory for the project.
+
+    <mkdir work>
+
+## 1. README FILE
+
+
+- Created a readme file to keep track of the exercise progress.
+
+    <cd work>
+    <code README.md>
+
+#### Challenges
+- None.
+
+#### Solutions
+- None, since there were no challenges.
+
+#### Lessons
+- In order to keep track of my progress in this quest I decided to use a single readme file.
+
+
+## 2. SETTING UP GIT
+
+### 2.1 Install Git
+
+- Since I'm on Ubuntu I used "apt" to install all the latest git functionalities.
+
+    <$ sudo apt install git-all>
+
+### 2.2 Configure Git
+
+- Telling Git to remember my credentials.
+
+    <git config --global credential.helper store>
+
+- Telling git to create my user name which is vomolo.
+
+    <git config --global user.name "vomolo">
+
+- Telling git to create my user email which is valentineomolo1@gmail.com.
+
+    <git config --global user.email "valentineomolo1">
+
+- To check my user name and email.
+
+    <git config user.name>
+    <git config user.email>
+
+#### Challenges
+- None.
+
+#### Solutions
+- None, since there were no challenges.
+
+#### Lessons
+- In order to use Git you must set up user name and email.
+
+
+## 3. GIT COMMITS TO COMMIT
+
+
+### 3.1 Create hello directory
+
+- Created a hello directory inside work directory.
+
+    <mkdir hello>
+
+- Generated a file called hello.sh
+
+    <cd hello>
+    <code hello.sh>
+
+- Paste "echo "Hello, World"" inside hello.sh.
+
+
+### 3.2 Initialize Git Repository
+
+- Initialize the git repository in the hello directory which will be empty.
+
+    <git init>
+

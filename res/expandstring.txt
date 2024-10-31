@@ -53,3 +53,54 @@ func joinWithSpaces(words []string) string {
 
 	return result
 }
+
+
+
+
+reviseddd
+
+package main
+
+import "fmt"
+
+func main() {
+	str := "   to be or       not to be  .   "
+	res1 := trim(str)
+	res2 := space(res1)
+	fmt.Println(res2)
+}
+
+func trim(s string) string {
+	start := 0
+	end := len(s) - 1
+
+	for start < end && s[start] == ' ' {
+		start++
+	}
+
+	for end > start && s[end] == ' ' {
+		end--
+	}
+
+	return s[start : end+1]
+}
+
+func space(s string) string {
+	res := ""
+	flag := false
+
+	for _, char := range s {
+		if char == ' ' {
+			flag = true
+		} else {
+			if flag {
+				res += "  "
+				flag = false
+			}
+			res += string(char)
+		}
+	}
+
+	return res
+}
+
